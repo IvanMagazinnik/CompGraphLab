@@ -4,7 +4,7 @@ from cube import *
 
 from pyglet.gl import *
 from pyglet.window import key, mouse
-from cube import selected_img, menu_img
+from cube import selected_img, menu_img, TEXTURE
 
 class Window(pyglet.window.Window):
 
@@ -39,7 +39,7 @@ class Window(pyglet.window.Window):
         self.dy = 0
 
         # Список доступных игроку кубов
-        self.player_cube = [BRICK, GRASS, SAND]
+        self.player_cube = [BRICK, GRASS, SAND, WOOD, TREE]
 
         # Текущий куб игрока
         self.block = self.player_cube[0]
@@ -68,13 +68,13 @@ class Window(pyglet.window.Window):
         # Определение нормированного вектора направления камеры вычисляется переходом от сферических rotation
         # координат к декартовым
 
-        phi, psi = self.rotation
+        x, y = self.rotation
 
-        m = math.cos(math.radians(psi))
+        m = math.cos(math.radians(y))
 
-        dy = math.sin(math.radians(psi))
-        dx = math.sin(math.radians(phi)) * m
-        dz = -1 * math.cos(math.radians(phi)) * m
+        dy = math.sin(math.radians(y))
+        dx = math.cos(math.radians(x - 90)) * m
+        dz = math.sin(math.radians(x - 90)) * m
         return dx, dy, dz
 
     def get_motion_vector(self):
@@ -245,8 +245,6 @@ class Window(pyglet.window.Window):
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-    def vec(args):
-        return (GLfloat * len(args))(args)
 
     def set_3d(self):
         # Конфигурация opengl для отрисовки 3d  здесь же вся работа с камерой, тюе поварот на
@@ -306,7 +304,12 @@ class Window(pyglet.window.Window):
         selected_menu = pyglet.sprite.Sprite(selected_img, x=start_pos + self.selected_block * 40 - 4, y=27,
                                              batch=self.menu_selector)
         menu = pyglet.sprite.Sprite(menu_img, x=start_pos, y=30, batch=self.menu_selector)
-
+        blocks = []
+        blocks.append(pyglet.sprite.Sprite(img_brick, x=start_pos+6, y=30+4, batch=self.menu_selector))
+        blocks.append(pyglet.sprite.Sprite(img_grass, x=start_pos + 6 + 1*40, y=30 + 4, batch=self.menu_selector))
+        blocks.append(pyglet.sprite.Sprite(img_sand, x=start_pos + 6 + 2*40, y=30 + 4, batch=self.menu_selector))
+        blocks.append(pyglet.sprite.Sprite(img_wood, x=start_pos + 6 + 3*40, y=30 + 4, batch=self.menu_selector))
+        blocks.append(pyglet.sprite.Sprite(img_wood_part, x=start_pos + 6 + 4*40, y=30 + 4, batch=self.menu_selector))
 
         self.menu_selector.draw()
 

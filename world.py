@@ -19,7 +19,7 @@ class World(object):
         self.batch = pyglet.graphics.Batch()
 
         # Текстурный объект
-        self.texture = TextureGroup(image.load(TEXTURE_PATH).get_texture())
+        self.texture = TextureGroup(TEXTURE.get_texture())
 
         # описание всех блоков в мире
         self.world = {}
@@ -62,7 +62,7 @@ class World(object):
             h = random.randint(1, 6)
             s = random.randint(4, 8)
             d = 1
-            t = random.choice([GRASS, SAND, BRICK])
+            t = random.choice([GRASS, SAND, BRICK,WOOD,TREE])
             for y in xrange(c, c + h):
                 for x in xrange(a - s, a + s + 1):
                     for z in xrange(b - s, b + s + 1):
@@ -117,11 +117,6 @@ class World(object):
             self.check_neighbors(position)
 
     def check_neighbors(self, position):
-        """ Check all blocks surrounding `position` and ensure their visual
-        state is current. This means hiding blocks that are not exposed and
-        ensuring that all exposed blocks are shown. Usually used after a block
-        is added or removed.
-        """
         x, y, z = position
         for dx, dy, dz in FACES:
             key = (x + dx, y + dy, z + dz)

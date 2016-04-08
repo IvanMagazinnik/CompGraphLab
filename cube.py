@@ -14,7 +14,7 @@ def cube_vertices(x, y, z, n):
     ]
 
 
-def tex_coord(x, y, n=4):
+def tex_coord(x, y, n=16):
     # координты конкретной части текстуры из файлика
     m = 1.0 / n
     dx = x * m
@@ -34,15 +34,16 @@ def tex_coords(top, bottom, side):
     return result
 
 
-TEXTURE_PATH = 'texture.png'
-#TEXTURE_PATH = 'big_texture.png'
-#TEXTURE_PATH = 'image.png'
+TEXTURE_PATH = 'textures/texture_pack.png'
 
-GRASS = tex_coords((1, 0), (0, 1), (0, 0))
-#GRASS = tex_coords((4, 15), (3, 15), (3, 15))
-SAND = tex_coords((1, 1), (1, 1), (1, 1))
-BRICK = tex_coords((2, 0), (2, 0), (2, 0))
-STONE = tex_coords((2, 1), (2, 1), (2, 1))
+TEXTURE = image.load(TEXTURE_PATH)
+
+GRASS = tex_coords((1, 15), (2, 15), (2, 15))
+SAND = tex_coords((4, 13), (4, 13), (4, 13))
+BRICK = tex_coords((5, 10), (5, 10), (5, 10))
+STONE = tex_coords((15, 6), (15, 6), (15, 6))
+WOOD = tex_coords((5, 15), (5, 15), (5, 15))
+TREE = tex_coords((3, 14), (3, 14), (4, 14))
 
 FACES = [
     ( 0, 1, 0),
@@ -72,5 +73,16 @@ def get_sector(position):
 
 IMG_SELECTED = 'textures/selected_menu.png'
 IMG_MENU = 'textures/menu.png'
+IMG_GRASS = 'textures/grass_img.png'
+IMG_BRICK = 'textures/brick_img.png'
+IMG_SAND = 'textures/sand_img.png'
+IMG_WOOD = 'textures/wood_img.png'
+IMG_WOOD_PART = 'textures/wood_part_img.png'
+
 menu_img = image.load(IMG_MENU)
 selected_img = image.load(IMG_SELECTED)
+img_grass = image.load(IMG_GRASS)
+img_brick = image.load(IMG_BRICK)
+img_sand = image.load(IMG_SAND)
+img_wood = image.load(IMG_WOOD)
+img_wood_part = image.load(IMG_WOOD_PART)
